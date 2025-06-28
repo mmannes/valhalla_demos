@@ -115,8 +115,8 @@ function selectFiles(evt) {
 app.run(function($rootScope) {
   var hash_loc = hash_params ? hash_params : {
     'center' : {
-      'lat' : 40.7486,
-      'lng' : -73.9690
+      'lat' : -26.489291323997907, 
+      'lng': -49.07911760887766
     },
     'zoom' : 14
   };
@@ -135,7 +135,7 @@ app.run(function($rootScope) {
 });
 
 app.controller('RouteController', function($scope, $rootScope, $sce, $http) {
-  var manhattan = [40.7510, -73.9783];
+  var manhattan = [-26.489291323997907, -49.07911760887766];
   var map = L.map('map', {
     zoom : $rootScope.geobase.zoom,
     zoomControl : true,
@@ -975,6 +975,7 @@ app.controller('RouteController', function($scope, $rootScope, $sce, $http) {
       truckBtn.addEventListener('click', function(e) {
         if (!rr) return;
         getToken();
+        var costing = 'truck';
         if (document.getElementById('truckoptions').style.display == "block") {
           var truckoptions = setTruckOptions();
           var calendarInput = document.getElementById("datepicker").value;
@@ -982,19 +983,19 @@ app.controller('RouteController', function($scope, $rootScope, $sce, $http) {
             dateStr = datetimeUpdate(calendarInput);
             var dtoptions = setDateTime(dateStr);
             rr.route({
-              costing : 'truck',
+              costing : costing,
               costing_options : truckoptions,
               date_time : dtoptions
             });
           } else {
             rr.route({
-              costing : 'truck',
+              costing : costing,
               costing_options : truckoptions,
             });
           }
         } else {
           rr.route({
-            costing : 'truck'
+            costing : costing
           });
         }
         updateHashCosting(costing,truckoptions,dtoptions);
